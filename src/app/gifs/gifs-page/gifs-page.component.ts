@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Gif } from '../interfaces/gif.interfaces';
 
 @Component({
   selector: 'app-gifs-page',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GifsPageComponent implements OnInit {
 
-  constructor() { }
+  @Input() gif: Gif[] = [];
+
+  constructor() {
+
+  }
 
   ngOnInit(): void {
+  }
+
+  recibeGif(gif: Gif[]): void{
+    this.gif = gif;
+    localStorage.setItem('resultados', JSON.stringify(this.gif));
   }
 
 }

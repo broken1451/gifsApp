@@ -21,7 +21,7 @@ export class GifsService {
        // tslint:disable-next-line: no-non-null-assertion
        this._historial = JSON.parse(localStorage.getItem('historial')!);
        // tslint:disable-next-line: no-non-null-assertion
-       this.gifs = JSON.parse(localStorage.getItem('resultados')!);
+      //  this.gifs = JSON.parse(localStorage.getItem('resultados')!);
      }
   }
 
@@ -43,16 +43,16 @@ export class GifsService {
     .set('api_key', environment.apiKey)
     .set('q', termino)
     .set('limit', '10');
-
     // return this.httpClient.get<SearchGifResponse>(`${environment.url}?api_key=${environment.apiKey}&q=${termino}&limit=10`)
     return this.httpClient.get<SearchGifResponse>(`${environment.url}/search`, { params })
       .pipe(
         take(1),
         map((res: SearchGifResponse) => {
           return res.data;
-        })).subscribe((data: any) => {
-          this.gifs = data;
-          localStorage.setItem('resultados', JSON.stringify(this.gifs));
-        });
+        }));
+        // .subscribe((data: any) => {
+        //   this.gifs = data;
+        //   localStorage.setItem('resultados', JSON.stringify(this.gifs));
+        // });
   }
 }

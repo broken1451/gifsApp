@@ -1,8 +1,6 @@
 <div class="d-flex">
   <!-- sidebar -->
-  <app-sidebar></app-sidebar>
+  <app-sidebar (enviaGif)='recibeGif($event)'></app-sidebar>
   <!-- end sidebar -->
-  <app-gifs-page class="container"></app-gifs-page>
+  <app-gifs-page [gif]='gif' class="container"></app-gifs-page>
 </div>
-
-<!-- TODO refactorizar esta app con input y outputs -->

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Gif } from '../interfaces/gif.interfaces';
 import { GifsService } from '../services/gifs.service';
 
@@ -9,14 +9,19 @@ import { GifsService } from '../services/gifs.service';
 })
 export class ResultadosComponent implements OnInit {
 
-  get resultados(): Gif[] {
-    return this.gifService.gifs;
-  }
+  // get resultados(): Gif[] {
+  //   return this.gifService.gifs;
+  // }
 
-  constructor(private gifService: GifsService) { }
+  @Input() resultados: Gif[] = [];
+
+  constructor(private gifService: GifsService) {}
 
   ngOnInit(): void {
-    // console.log('aca', this.resultados);
+    if ( localStorage.getItem('resultados') ) {
+      // tslint:disable-next-line: no-non-null-assertion
+      this.resultados = JSON.parse(localStorage.getItem('resultados')!);
+    }
   }
 
 }
