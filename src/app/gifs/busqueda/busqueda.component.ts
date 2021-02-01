@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
+import { Component, ElementRef, OnInit, Output, ViewChild, EventEmitter, AfterViewInit } from '@angular/core';
 import { Gif } from '../interfaces/gif.interfaces';
 import { GifsService } from '../services/gifs.service';
 
@@ -7,14 +7,20 @@ import { GifsService } from '../services/gifs.service';
   templateUrl: './busqueda.component.html',
   styleUrls: ['./busqueda.component.scss'],
 })
-export class BusquedaComponent implements OnInit {
+export class BusquedaComponent implements OnInit, AfterViewInit {
   // Non-null assertion operator - operador para  asegurarse que el objeto no es nulo
   @ViewChild('txtBuscar') txtBuscar!: ElementRef<HTMLInputElement>;
   @Output() enviaGif: EventEmitter<Gif[]> = new EventEmitter<Gif[]>();
+  public termino: string = '';
 
-  constructor(private gifService: GifsService) {}
+  constructor(private gifService: GifsService) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+  }
 
   buscar(): void {
     const valor = this.txtBuscar.nativeElement.value;
@@ -25,6 +31,7 @@ export class BusquedaComponent implements OnInit {
     .subscribe((data: any) => {
       this.enviaGif.emit(data);
     });
+    this.termino = '';
     this.txtBuscar.nativeElement.value = '';
   }
 }
